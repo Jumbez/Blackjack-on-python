@@ -1,17 +1,15 @@
-# Ari Hietanen          282456      ari.hietanen@tuni.fi
-# Jukka-Pekka Keinänen  290650      jukka-pekka.keinanen@tuni.fi
+# Ari Hietanen
+# Jukka-Pekka Keinänen
 
-# TIE-02101, Ohjelmointi 1
-# Tehtävän graafinen käyttöliittymä ratkaisu:
-# Ohjelmassa on toteuttu klassinen kasinoilla pelattava korttipeli blackjack.
-# Pelin säännöt löytyvät tekstitiedostosta rules, ja ohjelman toteutuksessa
-# käytetyt luokat kansiosta constructor_classes. Pelissä voi kerrallaan pelata
-# yhden pakan kerrallaan, jonka jälkeen se on käynnistettävä uudelleen. Peli
-# tähtäsi arvostelussa skaalautuvaksi projektiksi.
+# This program includes the implementation of the casino game blackjack.
+# The rules can be viewed in rules.txt, and the classes are found in folder
+# constructor_classes with brief commenting. The game supports playing one
+# Deck at the time after which the program must be manually restarted.
 
 import tkinter as tk
 from tkinter import messagebox
 import time
+import os
 from constructor_classes.c_deck import Deck
 from constructor_classes.c_hand import Hand
 
@@ -276,7 +274,7 @@ class GUI:
         :param card: the name of the card in the format ValueSuit, e.g. "1S"
         :type card: str
         """
-        img_path = f"pics/{card}.gif"
+        img_path = f"{os.getcwd()}\pics\{card}.gif"
         card_img = tk.PhotoImage(file=img_path)
         self.cards_of_the_turn.append(card_img)
 
@@ -402,6 +400,13 @@ class GUI:
 
 def main():
 
+    # Changing the working directory to the current location of the file to
+    # enable the
+    absolute_path = os.path.abspath(__file__)
+    directory_name = os.path.dirname(absolute_path)
+    os.chdir(directory_name)
+
+    # Setting the deck based on imported classes and running the GUI
     deck = Deck()
     GUI(deck)
 
